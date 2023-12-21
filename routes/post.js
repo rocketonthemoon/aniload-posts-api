@@ -17,6 +17,16 @@ router.get("/:id", getPost, (req, res) => {
   res.json(res.post);
 });
 
+// Getting posts by user ID
+router.get("/createdBy/:id", async (req, res) => {
+  try {
+    const posts = await Post.find({ createdBy: req.params.id });
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Deleting One
 router.delete("/:id", getPost, async (req, res) => {
   try {
